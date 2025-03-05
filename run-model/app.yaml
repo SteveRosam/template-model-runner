@@ -4,6 +4,7 @@ variables:
   - name: input
     inputType: InputTopic
     description: This is the raw data input topic
+    defaultValue: tyre-data
     required: true
   - name: output
     inputType: OutputTopic
