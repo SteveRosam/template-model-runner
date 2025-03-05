@@ -200,3 +200,4 @@ signal.signal(signal.SIGINT, signal_handler)
 flask_thread = threading.Thread(target=run_flask_app)
 flask_thread.start()
 
+consume_kafka_data()
