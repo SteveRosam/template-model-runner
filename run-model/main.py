@@ -25,7 +25,7 @@ app = Application(consumer_group="model-runner")
 
 # Create a consumer and start a polling loop
 with app.get_consumer() as consumer:
-    consumer.subscribe(topics=['tyre-data'])
+    consumer.subscribe(topics=['demo-templatemodelrunner-dev-tyre-data'])
 
     while True:
         msg = consumer.poll(0.1)
