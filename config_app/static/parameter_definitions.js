@@ -2,8 +2,8 @@ let availableUnits = [];
 
 document.addEventListener('DOMContentLoaded', function() {
     Promise.all([
-        fetch('http://localhost:5000/get_parameters').then(response => response.json()),
-        fetch('http://localhost:5000/get_units').then(response => response.json())
+        fetch('https://0.0.0.0:80/get_parameters').then(response => response.json()),
+        fetch('https://0.0.0.0:80/get_units').then(response => response.json())
     ])
     .then(([parameters, units]) => {
         availableUnits = units;
@@ -46,7 +46,7 @@ document.getElementById('publishForm').addEventListener('submit', function(event
         }
     }
 
-    fetch('http://localhost:5000/publish_param_defs', {
+    fetch('https://0.0.0.0:80/publish_param_defs', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
