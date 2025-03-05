@@ -37,7 +37,7 @@ with app.get_consumer() as consumer:
 
         # Assuming the message value is a JSON string containing 'road_speed'
         kafka_data = json.loads(msg.value())
-        road_speed = int(kafka_data.get('road_speed', 0))
+        road_speed = float(kafka_data.get('road_speed', 0))
         print("road_speed from Kafka:", road_speed)
         print(parameter_data)
         tyre_pressure = int(parameter_data.get('tyre_pressure', 0))
