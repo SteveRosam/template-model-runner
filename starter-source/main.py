@@ -24,21 +24,21 @@ def get_data():
     """
 
     # define the hardcoded dataset
-    # this data is fake data representing used % of memory allocation over time
+    # this data is fake data representing used % of 001ory allocation over time
     # there is one row of data every 1 to 2 seconds
     data = [
-        {"m": "mem", "host": "host1", "used_percent": "64.56", "time": "1577836800000000000"},
-        {"m": "mem", "host": "host2", "used_percent": "71.89", "time": "1577836801000000000"},
-        {"m": "mem", "host": "host1", "used_percent": "63.27", "time": "1577836803000000000"},
-        {"m": "mem", "host": "host2", "used_percent": "73.45", "time": "1577836804000000000"},
-        {"m": "mem", "host": "host1", "used_percent": "62.98", "time": "1577836806000000000"},
-        {"m": "mem", "host": "host2", "used_percent": "74.33", "time": "1577836808000000000"},
-        {"m": "mem", "host": "host1", "used_percent": "65.21", "time": "1577836810000000000"},
-        {"m": "mem", "host": "host2", "used_percent": "70.88", "time": "1577836812000000000"},
-        {"m": "mem", "host": "host1", "used_percent": "64.61", "time": "1577836814000000000"},
-        {"m": "mem", "host": "host2", "used_percent": "72.56", "time": "1577836816000000000"},
-        {"m": "mem", "host": "host1", "used_percent": "63.77", "time": "1577836818000000000"},
-        {"m": "mem", "host": "host2", "used_percent": "73.21", "time": "1577836820000000000"}
+        {"car_id": "001", "road_speed": "64.56", "time": "1577836800000000000"},
+        {"car_id": "001", "road_speed": "71.89", "time": "1577836801000000000"},
+        {"car_id": "001", "road_speed": "83.27", "time": "1577836803000000000"},
+        {"car_id": "001", "road_speed": "93.45", "time": "1577836804000000000"},
+        {"car_id": "001", "road_speed": "102.98", "time": "1577836806000000000"},
+        {"car_id": "001", "road_speed": "74.33", "time": "1577836808000000000"},
+        {"car_id": "001", "road_speed": "65.21", "time": "1577836810000000000"},
+        {"car_id": "001", "road_speed": "70.88", "time": "1577836812000000000"},
+        {"car_id": "001", "road_speed": "80.61", "time": "1577836814000000000"},
+        {"car_id": "001", "road_speed": "50.56", "time": "1577836816000000000"},
+        {"car_id": "001", "road_speed": "40.77", "time": "1577836818000000000"},
+        {"car_id": "001", "road_speed": "10.21", "time": "1577836820000000000"}
     ]
 
     # create a list of tuples with row_data
