@@ -30,6 +30,20 @@ deployments:
       ports:
         - port: 6379
           targetPort: 6379
+  - name: Starter Source
+    application: starter-source
+    version: latest
+    deploymentType: Service
+    resources:
+      cpu: 200
+      memory: 500
+      replicas: 1
+    variables:
+      - name: output
+        inputType: OutputTopic
+        description: Name of the output topic to write into
+        required: true
+        value: tyre-data
 
 # This section describes the Topics of the data pipeline
 topics:
