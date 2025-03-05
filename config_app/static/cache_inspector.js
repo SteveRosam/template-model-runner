@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    fetch('https://localhost/read')
+    fetch('https://config-app-demo-templatemodelrunner-dev.demo.quix.io/read')
     .then(response => response.json())
     .then(data => {
         const display = document.getElementById('valueDisplay');

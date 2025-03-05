@@ -2,8 +2,8 @@ let availableUnits = [];
 
 document.addEventListener('DOMContentLoaded', function() {
     Promise.all([
-        fetch('https://localhost/get_parameters').then(response => response.json()),
-        fetch('https://localhost/get_units').then(response => response.json())
+        fetch('https://config-app-demo-templatemodelrunner-dev.demo.quix.io/get_parameters').then(response => response.json()),
+        fetch('https://config-app-demo-templatemodelrunner-dev.demo.quix.io/get_units').then(response => response.json())
     ])
     .then(([parameters, units]) => {
         availableUnits = units;
@@ -46,7 +46,7 @@ document.getElementById('publishForm').addEventListener('submit', function(event
         }
     }
 
-    fetch('https://localhost/publish_param_defs', {
+    fetch('https://config-app-demo-templatemodelrunner-dev.demo.quix.io/publish_param_defs', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
