@@ -6,10 +6,6 @@ variables:
     description: This is the raw data input topic
     defaultValue: tyre-data
     required: true
-  - name: TextColumnName
-    inputType: FreeText
-    description: For the table structured input, specify name of the column where input text is located.
-    defaultValue: text
 dockerfile: dockerfile
 runEntryPoint: main.py
 defaultFile: hugging_face_model.py
