@@ -40,8 +40,8 @@ with app.get_consumer() as consumer:
         road_speed = float(kafka_data.get('road_speed', 0))
         print("road_speed from Kafka:", road_speed)
         print(parameter_data)
-        tyre_pressure = int(parameter_data.get('tyre_pressure', 0))
-        tyre_diameter = int(parameter_data.get('tyre_diameter', 0))
+        tyre_pressure = float(parameter_data.get('tyre_pressure', 0))
+        tyre_diameter = float(parameter_data.get('tyre_diameter', 0))
         print("tyre_pressure from Redis:", tyre_pressure)
         print("tyre_diameter from Redis:", tyre_diameter)
         # Example prediction using data from Redis and Kafka
