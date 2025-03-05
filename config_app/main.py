@@ -54,8 +54,6 @@ def consume_kafka_data():
             # Store the offset of the processed message
             consumer.store_offsets(message=msg)
 
-consume_kafka_data()
-
 
 @app.route('/')
 def index():
