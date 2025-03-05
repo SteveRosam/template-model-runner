@@ -31,7 +31,7 @@ def consume_kafka_data():
         app = Application(consumer_group="config-app")
     
     with app.get_consumer() as consumer:
-        consumer.subscribe(topics=['tyre-data'])
+        consumer.subscribe(topics=['demo-templatemodelrunner-dev-tyre-data'])
 
         while True:
             msg = consumer.poll(0.1)
