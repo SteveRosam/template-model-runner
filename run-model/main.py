@@ -38,12 +38,14 @@ with app.get_consumer() as consumer:
         # Assuming the message value is a JSON string containing 'road_speed'
         kafka_data = json.loads(msg.value())
         road_speed = int(kafka_data.get('road_speed', 0))
-        print("Loaded road_speed from Kafka:", road_speed)
+        print("road_speed from Kafka:", road_speed)
         print(parameter_data)
+        tyre_pressure = int(parameter_data.get('tyre_pressure', 0))
+        tyre_diameter = int(parameter_data.get('tyre_diameter', 0))
         # Example prediction using data from Redis and Kafka
         if parameter_data:
-            new_data = np.array([[int(parameter_data.get('tyre_pressure', 0)),
-                                  int(parameter_data.get('tyre_diameter', 0)),
+            new_data = np.array([[tyre_pressure,
+                                  tyre_diameter,
                                   road_speed]])
             predicted_risk = loaded_model.predict(new_data)
             print(f'Predicted Risk of Explosion: {predicted_risk[0]}')
