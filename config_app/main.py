@@ -183,7 +183,7 @@ def units_page():
 
 # Start Flask app in a separate thread
 def run_flask_app():
-    app.run(debug=False, port=80)
+    app.run(debug=False, host="0.0.0.0", port=80)
 
 
 # Signal handler to stop threads
