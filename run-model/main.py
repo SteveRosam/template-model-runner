@@ -42,6 +42,8 @@ with app.get_consumer() as consumer:
         print(parameter_data)
         tyre_pressure = int(parameter_data.get('tyre_pressure', 0))
         tyre_diameter = int(parameter_data.get('tyre_diameter', 0))
+        print("tyre_pressure from Redis:", tyre_pressure)
+        print("tyre_diameter from Redis:", tyre_diameter)
         # Example prediction using data from Redis and Kafka
         if parameter_data:
             new_data = np.array([[tyre_pressure,
