@@ -39,7 +39,7 @@ with app.get_consumer() as consumer:
         kafka_data = json.loads(msg.value())
         road_speed = kafka_data.get('road_speed', 0)
         print("Loaded road_speed from Kafka:", road_speed)
-
+        print(parameter_data)
         # Example prediction using data from Redis and Kafka
         if parameter_data:
             new_data = np.array([[parameter_data.get('tyre_pressure', 0),
