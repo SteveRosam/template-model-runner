@@ -17,7 +17,7 @@ def load_parameter_values_from_redis():
         print("Loaded parameter data from Redis:", parameter_data)
     else:
         print("No parameter data found in Redis.")
-    return parameter_data_json
+    return parameter_data
 
 # Load the model from the file
 with open('tire_explosion_model.pkl', 'rb') as file:
@@ -42,6 +42,9 @@ with app.get_consumer() as consumer:
         kafka_data = json.loads(msg.value())
         road_speed = float(kafka_data.get('road_speed', 0))
         print("road_speed from Kafka:", road_speed)
+
+        print("refreshing data from Redis")
+        parameter_data = load_parameter_values_from_redis()
         print(parameter_data)
         tyre_pressure = float(parameter_data.get('tyre_pressure', 0))
         tyre_diameter = float(parameter_data.get('tyre_diameter', 0))
