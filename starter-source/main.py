@@ -1,6 +1,6 @@
 from quixstreams import Application  # import the Quix Streams modules for interacting with Kafka:
 # (see https://quix.io/docs/quix-streams/v2-0-latest/api-reference/quixstreams.html for more details)
-
+import time
 # import additional modules as needed
 import os
 import json
@@ -54,24 +54,28 @@ def main():
 
     # create a pre-configured Producer object.
     with app.get_producer() as producer:
-        # iterate over the data from the hardcoded dataset
-        data_with_id = get_data()
-        for row_data in data_with_id:
+        
+        while True:
+            # iterate over the data from the hardcoded dataset
+            data_with_id = get_data()
+            for row_data in data_with_id:
 
-            json_data = json.dumps(row_data)  # convert the row to JSON
+                json_data = json.dumps(row_data)  # convert the row to JSON
 
-            # publish the data to the topic
-            producer.produce(
-                topic=topic.name,
-                key=row_data['car_id'],
-                value=json_data,
-            )
+                # publish the data to the topic
+                producer.produce(
+                    topic=topic.name,
+                    key=row_data['car_id'],
+                    value=json_data,
+                )
 
-            # for more help using QuixStreams see docs:
-            # https://quix.io/docs/quix-streams/introduction.html
+                # for more help using QuixStreams see docs:
+                # https://quix.io/docs/quix-streams/introduction.html
 
-        print("All rows published")
+            print("All rows published")
 
+            # wait a moment before sending the data again
+            time.sleep(1)
 
 if __name__ == "__main__":
     try:
