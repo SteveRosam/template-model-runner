@@ -10,8 +10,6 @@ import os
 from waitress import serve
 
 
-local = False
-
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -23,14 +21,7 @@ r = redis.Redis(host='redis', port=6379, db=0)
 
 # Kafka consumer setup
 def consume_kafka_data():
-    app = None
-    if local: 
-        # print(os.environ["Quix__Sdk__Token"])
-        app = Application(consumer_group="config-app",
-                          broker_address="devkafka-k1.quix.io:9093,devkafka-k2.quix.io:9093,devkafka-k3.quix.io:9093",
-                        quix_sdk_token="sdk-3b0dff74afcc4633bec5809690901a29")
-    else:
-        app = Application(consumer_group="config-app")
+    app = Application(consumer_group="config-app")
     
     with app.get_consumer() as consumer:
         consumer.subscribe(topics=['demo-templatemodelrunner-dev-tyre-data'])

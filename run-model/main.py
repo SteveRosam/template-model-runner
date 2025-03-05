@@ -1,30 +1,54 @@
-import os
-from quixstreams import Application
-from transformers import pipeline
+import numpy as np
+import pickle
+import redis
 import json
+from sklearn.linear_model import LinearRegression
+from quixstreams import Application
 
-# Load environment variables (useful when working locally)
-from dotenv import load_dotenv
-load_dotenv()
+# Connect to Redis
+r = redis.StrictRedis(host='redis', port=6379, db=0, decode_responses=True)
 
-app = Application(consumer_group="hugging-face-model-v1", auto_offset_reset="earliest")
+# Load parameter values from Redis
+parameter_data_json = r.get('parameter_data')
+if parameter_data_json:
+    parameter_data = json.loads(parameter_data_json)
+    print("Loaded parameter data from Redis:", parameter_data)
+else:
+    print("No parameter data found in Redis.")
 
-input_topic = app.topic(os.environ["input"])
-output_topic = app.topic(os.environ["output"])
+# Load the model from the file
+with open('tire_explosion_model.pkl', 'rb') as file:
+    loaded_model = pickle.load(file)
 
-# Download the Hugging Face model (list of available models here: https://huggingface.co/models)
-# suggested default is distilbert-base-uncased-finetuned-sst-2-english
-model_name = os.environ["HuggingFaceModel"]
-print("Downloading {0} model...".format(model_name))
-model_pipeline = pipeline(model=model_name)
+# Configure an Application for Quix Streams
+app = Application(consumer_group="model-runner")
 
-sdf = app.dataframe(input_topic)
+# Create a consumer and start a polling loop
+with app.get_consumer() as consumer:
+    consumer.subscribe(topics=['tyre-data'])
 
-# Assuming the input data has a 'text' column that you want to process with the model
-sdf['model_result'] = sdf['text'].apply(lambda t: json.dumps(model_pipeline(t)))
+    while True:
+        msg = consumer.poll(0.1)
+        if msg is None:
+            continue
+        elif msg.error():
+            print('Kafka error:', msg.error())
+            continue
 
-# Send the processed data to the output topic
-sdf = sdf.to_topic(output_topic)
+        # Assuming the message value is a JSON string containing 'road_speed'
+        kafka_data = json.loads(msg.value())
+        road_speed = kafka_data.get('road_speed', 0)
+        print("Loaded road_speed from Kafka:", road_speed)
 
-if __name__ == "__main__":
-    app.run(sdf)
+        # Example prediction using data from Redis and Kafka
+        if parameter_data:
+            new_data = np.array([[parameter_data.get('tyre_pressure', 0),
+                                  parameter_data.get('tyre_diameter', 0),
+                                  road_speed]])
+            predicted_risk = loaded_model.predict(new_data)
+            print(f'Predicted Risk of Explosion: {predicted_risk[0]}')
+        else:
+            print("Insufficient data for prediction.")
+
+        # Store the offset of the processed message
+        consumer.store_offsets(message=msg)
