@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    fetch('http://localhost:5000/get_units')
+    fetch('http://0.0.0.0:80/get_units')
     .then(response => response.json())
     .then(data => {
         const tableBody = document.getElementById('unitsTable').getElementsByTagName('tbody')[0];
