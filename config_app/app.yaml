@@ -1,0 +1,6 @@
+name: Config_App
+language: python
+dockerfile: dockerfile
+runEntryPoint: main.py
+defaultFile: main.py
+libraryItemId: http-api-sample
