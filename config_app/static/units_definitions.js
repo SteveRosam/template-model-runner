@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    fetch('https://0.0.0.0:80/get_units')
+    fetch('https://localhost/get_units')
     .then(response => response.json())
     .then(data => {
         const tableBody = document.getElementById('unitsTable').getElementsByTagName('tbody')[0];
@@ -32,7 +32,7 @@ document.getElementById('unitsForm').addEventListener('submit', function(event) 
         }
     }
 
-    fetch('https://0.0.0.0:80/publish_units', {
+    fetch('https://localhost/publish_units', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

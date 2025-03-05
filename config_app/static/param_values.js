@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     Promise.all([
-        fetch('https://0.0.0.0:80/get_parameters').then(response => response.json()),
-        fetch('https://0.0.0.0:80/read_parameter_data').then(response => response.json())
+        fetch('https://localhost/get_parameters').then(response => response.json()),
+        fetch('https://localhost/read_parameter_data').then(response => response.json())
     ])
     .then(([parameters, existingData]) => {
         const form = document.getElementById('dynamicForm');
@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     listItem.remove(); // Remove the list item from the UI
 
                     // Optionally, send a request to update the cache on the server
-                    fetch('https://0.0.0.0:80/delete_parameter_value', {
+                    fetch('https://localhost/delete_parameter_value', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
@@ -116,7 +116,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 jsonData[key] = value;
             });
 
-            fetch('https://0.0.0.0:80/publish_parameter_data', {
+            fetch('https://localhost/publish_parameter_data', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

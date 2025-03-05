@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    fetch('http://localhost:5000/read')
+    fetch('https://localhost/read')
     .then(response => response.json())
     .then(data => {
         const display = document.getElementById('valueDisplay');
