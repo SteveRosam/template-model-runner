@@ -10,12 +10,14 @@ from quixstreams import Application
 r = redis.StrictRedis(host='redis', port=6379, db=0, decode_responses=True)
 
 # Load parameter values from Redis
-parameter_data_json = r.get('parameter_data')
-if parameter_data_json:
-    parameter_data = json.loads(parameter_data_json)
-    print("Loaded parameter data from Redis:", parameter_data)
-else:
-    print("No parameter data found in Redis.")
+def load_parameter_values_from_redis():
+    parameter_data_json = r.get('parameter_data')
+    if parameter_data_json:
+        parameter_data = json.loads(parameter_data_json)
+        print("Loaded parameter data from Redis:", parameter_data)
+    else:
+        print("No parameter data found in Redis.")
+    return parameter_data_json
 
 # Load the model from the file
 with open('tire_explosion_model.pkl', 'rb') as file:
