@@ -6,11 +6,6 @@ variables:
     description: This is the raw data input topic
     defaultValue: tyre-data
     required: true
-  - name: output
-    inputType: OutputTopic
-    description: This is the output for the hugging face model score
-    defaultValue: hugging-face-output
-    required: true
   - name: HuggingFaceModel
     inputType: FreeText
     description: Name of the Hugging Face model to be used
