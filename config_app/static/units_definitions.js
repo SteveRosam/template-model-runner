@@ -32,7 +32,7 @@ document.getElementById('unitsForm').addEventListener('submit', function(event) 
         }
     }
 
-    fetch('http://localhost:5000/publish_units', {
+    fetch('http://0.0.0.0:80/publish_units', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
