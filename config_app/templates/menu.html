@@ -1,0 +1,26 @@
+{% set current_page = request.endpoint %}
+<p>
+    {% if current_page != 'parameter_definitions_page' %}
+        <a href="{{ url_for('parameter_definitions_page') }}">Parameter Definitions</a>
+    {% else %}
+        <span>Parameter Definitions</span>
+    {% endif %}
+    |
+    {% if current_page != 'param_values_page' %}
+        <a href="{{ url_for('param_values_page') }}">Param Values</a>
+    {% else %}
+        <span>Param Values</span>
+    {% endif %}
+    |
+    {% if current_page != 'units_page' %}
+        <a href="{{ url_for('units_page') }}">Units</a>
+    {% else %}
+        <span>Units</span>
+    {% endif %}
+    |
+    {% if current_page != 'cache_inspector_page' %}
+        <a href="{{ url_for('cache_inspector_page') }}">Data Inspector</a>
+    {% else %}
+        <span>Data Inspector</span>
+    {% endif %}
+</p>

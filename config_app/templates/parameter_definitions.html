@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Model Parameter Setup</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Model Parameter Setup</h1>
+
+        {% include 'menu.html' %}
+
+        <form id="publishForm">
+            <table id="parameterTable">
+                <thead>
+                    <tr>
+                        <th>Parameter Name</th>
+                        <th>Type</th>
+                        <th>Required</th>
+                        <th>Units</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Rows will be added here -->
+                </tbody>
+            </table>
+            <div class="button-container">
+                <button type="button" id="addRowButton">Add Parameter</button>
+                <button type="submit" id="submitButton" style="display: none;">Submit</button>
+            </div>
+        </form>
+        <div id="responseMessage"></div>
+
+        <h2>Changes Made</h2>
+        <table id="changesTable">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Parameter Name</th>
+                    <th>Type</th>
+                    <th>Required</th>
+                    <th>Units</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Changes will be displayed here -->
+            </tbody>
+        </table>
+
+    </div>
+    <script src="{{ url_for('static', filename='parameter_definitions.js') }}"></script>
+</body>
+</html>

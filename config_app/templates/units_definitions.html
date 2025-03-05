@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Units Definition</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Units Definition</h1>
+
+       
+        {% include 'menu.html' %}
+
+        <form id="unitsForm">
+            <table id="unitsTable">
+                <thead>
+                    <tr>
+                        <th>Unit Name</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Rows will be added here -->
+                </tbody>
+            </table>
+            <div class="button-container">
+                <button type="button" id="addUnitButton">Add Unit</button>
+                <button type="submit" id="submitButton" style="display: none;">Submit</button>
+            </div>
+
+        </form>
+        <div id="responseMessage"></div>
+    </div>
+    <script src="{{ url_for('static', filename='units_definitions.js') }}"></script>
+</body>
+</html>
