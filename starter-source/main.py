@@ -63,7 +63,7 @@ def main():
             # publish the data to the topic
             producer.produce(
                 topic=topic.name,
-                key=row_data['host'],
+                key=row_data['car_id'],
                 value=json_data,
             )
 
