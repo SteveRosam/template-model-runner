@@ -155,6 +155,10 @@ def publish_units():
 
 # PAGE ROUTES
 
+@app.route('/book_page')
+def book_page():
+    return render_template('book.html')
+
 @app.route('/cache_inspector_page')
 def cache_inspector_page():
     return render_template('cache_inspector.html')
