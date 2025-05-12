@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meeting Booking Form</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f7fa;
+        }
+        
+        .container {
+            background-color: white;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            color: #2c3e50;
+            margin-top: 0;
+            margin-bottom: 24px;
+            text-align: center;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        input, textarea, select {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        
+        textarea {
+            height: 120px;
+            resize: vertical;
+        }
+        
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #2980b9;
+        }
+        
+        .error {
+            color: #e74c3c;
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+        
+        input.invalid, textarea.invalid, select.invalid {
+            border-color: #e74c3c;
+        }
+        
+        .datetime-wrapper {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .datetime-wrapper .form-group {
+            flex: 1;
+        }
+        
+        .success-message {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        
+        .form-footer {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 14px;
+            color: #7f8c8d;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Book a Meeting</h1>
+        
+        <div class="success-message" id="successMessage">
+            Your meeting request has been submitted successfully! We'll contact you shortly.
+        </div>
+        
+        <form id="meetingForm">
+            <div class="form-group">
+                <label for="name">Full Name*</label>
+                <input type="text" id="name" placeholder="Enter your full name">
+                <div class="error" id="nameError">Please enter your name</div>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email Address*</label>
+                <input type="email" id="email" placeholder="Enter your email address">
+                <div class="error" id="emailError">Please enter a valid email address</div>
+            </div>
+            
+            <div class="form-group">
+                <label for="company">Company Name*</label>
+                <input type="text" id="company" placeholder="Enter your company name">
+                <div class="error" id="companyError">Please enter your company name</div>
+            </div>
+            
+            <div class="datetime-wrapper">
+                <div class="form-group">
+                    <label for="date">Preferred Date*</label>
+                    <input type="date" id="date">
+                    <div class="error" id="dateError">Please select a date</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="time">Preferred Time*</label>
+                    <input type="time" id="time">
+                    <div class="error" id="timeError">Please select a time</div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="discussion">What would you like to discuss with us?*</label>
+                <textarea id="discussion" placeholder="Please share some details about what you'd like to discuss..."></textarea>
+                <div class="error" id="discussionError">Please provide discussion details</div>
+            </div>
+            
+            <button type="submit" id="submitBtn">Submit Meeting Request</button>
+        </form>
+        
+        <div class="form-footer">
+            <p>* Required fields</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('meetingForm');
+            const successMessage = document.getElementById('successMessage');
+            
+            // Set minimum date to today
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('date').min = today;
+            
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
+                
+                if (validateForm()) {
+                    // Form is valid - collect the data
+                    const formData = {
+                        name: document.getElementById('name').value,
+                        email: document.getElementById('email').value,
+                        company: document.getElementById('company').value,
+                        date: document.getElementById('date').value,
+                        time: document.getElementById('time').value,
+                        discussion: document.getElementById('discussion').value
+                    };
+                    
+                    // Log the data (in a real implementation, you'd send this to a server)
+                    console.log("Meeting request submitted:", formData);
+                    
+                    // Show success message
+                    form.reset();
+                    successMessage.style.display = 'block';
+                    
+                    // Hide success message after 5 seconds
+                    setTimeout(function() {
+                        successMessage.style.display = 'none';
+                    }, 5000);
+                }
+            });
+            
+            function validateForm() {
+                let isValid = true;
+                
+                // Validate Name
+                const name = document.getElementById('name');
+                const nameError = document.getElementById('nameError');
+                if (!name.value.trim()) {
+                    name.classList.add('invalid');
+                    nameError.style.display = 'block';
+                    isValid = false;
+                } else {
+                    name.classList.remove('invalid');
+                    nameError.style.display = 'none';
+                }
+                
+                // Validate Email
+                const email = document.getElementById('email');
+                const emailError = document.getElementById('emailError');
+                const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!email.value.trim() || !emailPattern.test(email.value)) {
+                    email.classList.add('invalid');
+                    emailError.style.display = 'block';
+                    isValid = false;
+                } else {
+                    email.classList.remove('invalid');
+                    emailError.style.display = 'none';
+                }
+                
+                // Validate Company
+                const company = document.getElementById('company');
+                const companyError = document.getElementById('companyError');
+                if (!company.value.trim()) {
+                    company.classList.add('invalid');
+                    companyError.style.display = 'block';
+                    isValid = false;
+                } else {
+                    company.classList.remove('invalid');
+                    companyError.style.display = 'none';
+                }
+                
+                // Validate Date
+                const date = document.getElementById('date');
+                const dateError = document.getElementById('dateError');
+                if (!date.value) {
+                    date.classList.add('invalid');
+                    dateError.style.display = 'block';
+                    isValid = false;
+                } else {
+                    date.classList.remove('invalid');
+                    dateError.style.display = 'none';
+                }
+                
+                // Validate Time
+                const time = document.getElementById('time');
+                const timeError = document.getElementById('timeError');
+                if (!time.value) {
+                    time.classList.add('invalid');
+                    timeError.style.display = 'block';
+                    isValid = false;
+                } else {
+                    time.classList.remove('invalid');
+                    timeError.style.display = 'none';
+                }
+                
+                // Validate Discussion
+                const discussion = document.getElementById('discussion');
+                const discussionError = document.getElementById('discussionError');
+                if (!discussion.value.trim()) {
+                    discussion.classList.add('invalid');
+                    discussionError.style.display = 'block';
+                    isValid = false;
+                } else {
+                    discussion.classList.remove('invalid');
+                    discussionError.style.display = 'none';
+                }
+                
+                return isValid;
+            }
+            
+            // Add input event listeners to clear errors when user types
+            const inputs = form.querySelectorAll('input, textarea');
+            inputs.forEach(input => {
+                input.addEventListener('input', function() {
+                    this.classList.remove('invalid');
+                    const errorId = this.id + 'Error';
+                    const errorElement = document.getElementById(errorId);
+                    if (errorElement) {
+                        errorElement.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
